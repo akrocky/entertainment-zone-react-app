@@ -8,7 +8,7 @@ import {
   img_500,
   unavailable,
   unavailableLandscape
-} from "../../config/config";
+} from "../../config/config.js";
 import "./ContentModal.css";
 
 
@@ -39,6 +39,7 @@ export default function TransitionsModal({ children, media_type, id }) {
   const [open, setOpen] = useState(false);
   const [content, setContent] = useState();
   const [video, setVideo] = useState();
+  console.log(media_type,id);
 
   const handleOpen = () => {
     setOpen(true);
@@ -49,12 +50,13 @@ export default function TransitionsModal({ children, media_type, id }) {
   };
 
   const fetchData = async () => {
+    
     const { data } = await axios.get(
       `https://api.themoviedb.org/3/${media_type}/${id}?api_key=${process.env.REACT_APP_API_KEY}&language=en-US`
     );
 
     setContent(data);
-    // console.log(data);
+     console.log(data);
   };
 
   const fetchVideo = async () => {
@@ -66,9 +68,12 @@ export default function TransitionsModal({ children, media_type, id }) {
   };
 
   useEffect(() => {
-    fetchData();
+    if (media_type&&id) {
+      fetchData();
     fetchVideo();
-    // eslint-disable-next-line
+    }
+    
+    
   }, []);
 
   return (
@@ -109,15 +114,15 @@ export default function TransitionsModal({ children, media_type, id }) {
                 <img
                   src={
                     content.backdrop_path
-                      ? `${img_500}/${content.backdrop_path}`
+                      ? `${img_500}/${content?.backdrop_path}`
                       : unavailableLandscape
                   }
-                  alt={content.name || content.title}
+                  alt={content?.name || content?.title}
                   className="ContentModal__landscape"
                 />
                 <div className="ContentModal__about">
                   <span className="ContentModal__title">
-                    {content.name || content.title} (
+                    {content?.name || content?.title} (
                     {(
                       content.first_air_date ||
                       content.release_date ||
@@ -126,11 +131,11 @@ export default function TransitionsModal({ children, media_type, id }) {
                     )
                   </span>
                   {content.tagline && (
-                    <i className="tagline">{content.tagline}</i>
+                    <i className="tagline">{content?.tagline}</i>
                   )}
 
                   <span className="ContentModal__description">
-                    {content.overview}
+                    {content?.overview}
                   </span>
 
                   {/* <div>

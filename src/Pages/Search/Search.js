@@ -1,10 +1,12 @@
 import {
-    Button,
-    createMuiTheme,
-    Tab,
-    Tabs,
-    TextField,
-    ThemeProvider
+  Button,
+
+  createTheme,
+
+  Tab,
+  Tabs,
+  TextField,
+  ThemeProvider
 } from "@material-ui/core";
 import { SearchOutlined } from "@mui/icons-material";
 import axios from "axios";
@@ -20,7 +22,7 @@ import "./Search.css";
     const [content, setContent] = useState([]);
     const [numOfPages, setNumOfPages] = useState();
   
-    const darkTheme = createMuiTheme({
+    const darkTheme = createTheme({
       palette: {
         type: "dark",
         primary: {
@@ -45,8 +47,11 @@ import "./Search.css";
     };
   
     useEffect(() => {
-      window.scroll(0, 0);
-      fetchSearch();
+      
+        if (type&& page) {
+          fetchSearch();
+        }
+        window.scroll(0, 0);
      
     }, [type, page]);
   

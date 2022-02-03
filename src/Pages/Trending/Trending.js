@@ -22,15 +22,15 @@ const Trending = () => {
     useEffect(() => {
         fetchTrending ();
     }, [page]);
-    console.log(content);
+   
     
     return (
         <div className='trending'>
             <span className='pageTitle'>Trending</span>
            <div className='trending'>
                 {
-                content?.map((c)=>(
-              <SingleContent key={c.id }  poster={c.poster_path} title={c.title||c.name} date={c.first_air_date || c.release_date}
+              content&&  content.map((c)=>(
+              <SingleContent key={c.id }  poster={c.poster_path} title={c.title||c.name} date={c.first_air_date || c.release_date} id={c.id}
               media_type={c.media_type}
               vote_average={c.vote_average}/>
                 ))

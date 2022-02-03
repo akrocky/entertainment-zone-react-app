@@ -32,8 +32,8 @@ useEffect(()=>{
             setPage={setPage}/>
             <div className='trending'>
                 {
-                content?.map((c)=>(
-              <SingleContent key={c.id }  poster={c.poster_path} title={c.title||c.name} date={c.first_air_date || c.release_date}
+            content&&    content.map((c)=>(
+              <SingleContent key={c.id }  poster={c.poster_path} title={c.title||c.name} date={c.first_air_date || c.release_date} id={c.id}
               media_type='tv'
               vote_average={c.vote_average}/>
                 ))
